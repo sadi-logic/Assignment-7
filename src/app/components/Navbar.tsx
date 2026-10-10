@@ -32,7 +32,7 @@ const Navbar = () => {
     }, []);
 
     useEffect(() => {
-        fetch('https://api.abcz.workers.dev/api/bazardor/categories')
+        fetch('https://openapi.programming-hero.com/api/bazardor/categories')
             .then(res => res.json())
             .then(data => setCategories(data))
             .catch(err => console.log(err))
@@ -135,18 +135,6 @@ const Navbar = () => {
                         </Link>
                     );
                 })}
-
-                {/* {
-                    categories.map(cat => (
-
-                        <Link href={`/category/${cat?.slug}`} key={cat?.id}>
-                            <ul className="flex items-center hover:text-green-600 transition-colors cursor-pointer">
-                                <li className="mr-1">{cat.icon}</li>
-                                <li className="mr-4">{cat.nameBn}</li>
-                            </ul>
-                        </Link>
-                    ))
-                } */}
             </div>
         </div>
     );
