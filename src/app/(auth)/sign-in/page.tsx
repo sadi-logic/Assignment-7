@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Button, Description, Fieldset, FieldError, Form, Input, Label, TextField } from "@heroui/react";
-
+import Link from "next/link";
 const SignIn = () => {
 
     const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -22,20 +22,28 @@ const SignIn = () => {
         alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
     }
 
-    const login = async () => {
+    const handleGoogleSignIn = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
         });
+    };
+
+    const handleGithubSignIn = async () => {
+        const data = await authClient.signIn.social({
+            provider: "github",
+        });
+
+
     };
 
 
 
     return (
         <div className="container mx-auto flex justify-center">
-            <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
-                <div className="text-center">
-                    <Fieldset.Legend >সাইন ইন</Fieldset.Legend>
-                    <Description>বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</Description>
+            <Form className="flex w-96 flex-col gap-4 max-w-sm" onSubmit={onSubmit}>
+                <div className="flex flex-col justify-center items-center">
+                    <Fieldset.Legend className="text-center text-2xl font-bold mt-10" >সাইন ইন</Fieldset.Legend>
+                    <Description className="text-center">বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</Description>
                 </div>
                 <TextField
                     isRequired
@@ -75,19 +83,31 @@ const SignIn = () => {
                     <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
                     <FieldError />
                 </TextField>
-                <div>
-                    <Fieldset.Actions className='flex justify-center items-center'>
-                        <Button type="submit" className={`bg-green-700 rounded-xl pl-30 pr-30 py-5`}>
 
-                            সাইন ইন
-                        </Button>
-                    </Fieldset.Actions>
+                <Fieldset.Actions className='flex justify-center'>
+                    <Button type="submit" className={`bg-green-700 rounded-xl pl-40 pr-40 py-5`}>
 
-                </div>
+                        সাইন ইন
+                    </Button>
+                </Fieldset.Actions>
+
+
                 <div className="divider text-[12px]">অথবা</div>
-                <Button onClick={login}>Google Sign In</Button>
+                <div className="flex items-center">
+                    <div>
+                        {/* <Image src={'googleicon' } alt="googleicon" width={2} height={2}></Image> */}
+                        <Button onClick={handleGoogleSignIn} className='rounded-none hover:bg-green-200 bg-white text-black'>Google দিয়ে চালিয়ে যান</Button>
+                    </div>
+                    <Button onClick={handleGithubSignIn} className='rounded-none  hover:bg-green-200 bg-white text-black'>GitHub দিয়ে চালিয়ে যান</Button>
+                </div>
+                
+                <div className="flex items-center justify-center">
+                    <p>অ্যাকাউন্ট নেই?</p>
+                    <Link href={'/sign-up'}><p className="text-green-800">সাইন আপ করুন</p></Link>
+                </div>
+                <Link href='/'><p className="text-gray-600 flex justify-center items-center">← হোম পেজে ফিরে যান</p></Link>
             </Form>
-            
+
         </div>
     );
 };

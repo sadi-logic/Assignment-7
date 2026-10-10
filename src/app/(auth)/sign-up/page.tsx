@@ -1,7 +1,7 @@
 "use client";
 
 
-import { signUp } from "@/lib/auth-client";
+import { authClient, signUp } from "@/lib/auth-client";
 import {
     Button,
     Description,
@@ -13,6 +13,7 @@ import {
     Label,
     TextField,
 } from "@heroui/react";
+import Link from "next/link";
 
 
 const SignUp = () => {
@@ -32,15 +33,30 @@ const SignUp = () => {
             password: data.password,
             callbackURL: "/",
         });
-        console.log(signUpData, error);
+
+
+
+    };
+    const handleGoogleSignUp = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    };
+
+    const handleGithubSignUp = async () => {
+        const data = await authClient.signIn.social({
+            provider: "github",
+        });
+
+
     };
 
     return (
-        <div className="container mx-auto flex justify-center">
+        <div className="container mx-auto flex justify-center mt-10">
             <Form className="w-full max-w-96" onSubmit={onSubmit}>
                 <Fieldset>
-                    <Fieldset.Legend className="text-center">অ্যাকাউন্ট তৈরি করুন</Fieldset.Legend>
-                    <Description className="text-center">বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</Description>
+                    <Fieldset.Legend className="text-center text-2xl font-bold">অ্যাকাউন্ট তৈরি করুন</Fieldset.Legend>
+                    <Description className="text-center text-[16px]">বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</Description>
                     <FieldGroup>
                         <TextField
                             isRequired
@@ -103,6 +119,20 @@ const SignUp = () => {
                         </Button>
                     </Fieldset.Actions>
                     <div className="divider text-[12px]">অথবা</div>
+                    <div className="flex items-center">
+                        <div>
+                            {/* <Image src={'googleicon' } alt="googleicon" width={2} height={2}></Image> */}
+                            <Button onClick={handleGoogleSignUp} className='rounded-none bg-white text-black'>Google দিয়ে চালিয়ে যান</Button>
+                        </div>
+                        <Button onClick={handleGithubSignUp} className='rounded-none  bg-white text-black'>GitHub দিয়ে চালিয়ে যান</Button>
+
+                    </div>
+
+                    <div className="flex items-center justify-center">
+                        <p>অ্যাকাউন্ট আছে?</p>
+                        <Link href={'/sign-in'}><p className="text-green-800">সাইন ইন করুন</p></Link>
+                    </div>
+                    <Link href='/'><p className="text-gray-600 flex justify-center items-center">← হোম পেজে ফিরে যান</p></Link>
                 </Fieldset>
             </Form>
         </div>
