@@ -1,7 +1,7 @@
 import Link from "next/link";
 import CategoryList from "./categoryList";
 
-export const instant = false;
+
 
 interface Product {
     id: number;
@@ -17,7 +17,7 @@ interface Product {
     };
 }
 const getCategoryProducts = async (categorySlug: string): Promise<Product[]> => {
-    const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/products?category=${categorySlug}`)
+    const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products?category=${categorySlug}`)
     const data = await res.json()
     return data;
 }
@@ -27,7 +27,7 @@ const CategorieProduct = async ({ params }: { params: Promise<{ categorySlug: st
     const { categorySlug } = await params;
 
     const categoryProducts = await getCategoryProducts(categorySlug);
-    console.log(categoryProducts);
+   
 
 
 

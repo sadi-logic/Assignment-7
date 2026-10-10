@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-export const instant = false;
+
 interface Market {
     market: string;
     division: string;
@@ -52,7 +52,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
     let error = false;
 
        try {
-        const res = await fetch(`https://api.abcz.workers.dev/api/bazardor/products/${id}`, {
+        const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products/${id}`, {
             next: { revalidate: 60 }
         });
 

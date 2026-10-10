@@ -111,7 +111,7 @@ const ProfilePage = () => {
                     </button>
                 </div>
 
-                {/* 2. Update Info Form */}
+                
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mt-6">
                     <h3 className="font-bold text-lg text-gray-800 mb-6">তথ্য</h3>
 
