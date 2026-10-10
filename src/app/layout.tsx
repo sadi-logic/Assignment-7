@@ -21,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en" data-theme="light"
       className={`${notoSerifBengali} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body suppressHydrationWarning className="min-h-full flex flex-col">
         <Navbar/>
         <Marquee/>
         {children}

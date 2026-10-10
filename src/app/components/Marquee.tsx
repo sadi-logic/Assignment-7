@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MarqueeText from "react-marquee-text";
 
 
@@ -26,7 +27,7 @@ const Marquee = async () => {
 
     const data = await res.json();
 
-    const products: Products[] = data;
+    const products: Products[] = data.slice(0, 10);
 
     return (
         <div>
@@ -37,21 +38,24 @@ const Marquee = async () => {
                     className="py-2"
                 >
                     {
-                        products.map((p) => (
-                            <span key={p.id}>
-                                <span>{p.categoryIcon}</span>
-                                <span>{p.nameBn}</span>
-                                <span className="ml-2">
-                                    {p.today} টাকা/{p.unit}
-                                </span>
-                                <span className={`font-bold ml-2 ${p.change.dir === "up" ? "text-red-400 " : "text-green-400"
-                                    }`}>
-                                    {p.change.dir === "up" ? "▲" : "▼"}
-                                    {p.change.pct}%
-                                </span>
 
-                                <span className="mx-5 text-white">◉</span>
-                            </span>
+                        products.map((p) => (
+                            <Link key={p.id} href={`/products/${p.id}`} className="hover:text-green-400 transition-colors">
+                                <span key={p.id}>
+                                    <span>{p.categoryIcon}</span>
+                                    <span>{p.nameBn}</span>
+                                    <span className="ml-2">
+                                        {p.today} টাকা/{p.unit}
+                                    </span>
+                                    <span className={`font-bold ml-2 ${p.change.dir === "up" ? "text-red-400 " : "text-green-400"
+                                        }`}>
+                                        {p.change.dir === "up" ? "▲" : "▼"}
+                                        {p.change.pct}%
+                                    </span>
+
+                                    <span className="mx-5 text-white">◉</span>
+                                </span>
+                            </Link>
                         ))}
                 </MarqueeText>
             </div>
