@@ -57,7 +57,7 @@ const ProductCard = ({ p }: { p: Product }) => {
             </p>
           </div>
 
-          {/* Badge changes color based on 'up' or 'down' */}
+
           <span className={`font-semibold px-2 py-1 rounded-md text-sm flex items-center gap-1 ${p.change.dir === "up"
             ? "text-red-600 bg-red-50"
             : p.change.dir === "down"
@@ -92,8 +92,8 @@ export default async function Home() {
 
       {increasedProducts.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-red-600 flex items-center gap-2 mb-6">
-            <span className="text-lg">▲</span> আজ দাম বেড়েছে
+          <h2 className="text-2xl font-bold  flex items-center gap-2 mb-8  justify-center lg:justify-start">
+            <span className="text-lg text-red-600 ">▲</span> আজ দাম বেড়েছে
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {increasedProducts.map((p) => (
@@ -106,8 +106,8 @@ export default async function Home() {
 
       {decreasedProducts.length > 0 && (
         <div className="mt-14">
-          <h2 className="text-2xl font-bold text-green-600 flex items-center gap-2 mb-6">
-            <span className="text-lg">▼</span> আজ দাম কমেছে
+          <h2 className="text-2xl font-bold  flex items-center gap-2 mb-8 justify-center lg:justify-start">
+            <span className="text-lg text-green-600">▼</span> আজ দাম কমেছে
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {decreasedProducts.map((p) => (
@@ -118,12 +118,15 @@ export default async function Home() {
       )}
 
       <div id="all-products" className="mt-16 border-t border-gray-200 pt-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          সব পণ্য
-        </h2>
-        <p className="text-gray-500 mb-6">
-          মোট {toBanglaNumber(products.length)}টি পণ্য দেখানো হচ্ছে
-        </p>
+        <div>
+
+          <h2 className="text-2xl font-bold text-gray-800 mb-3 flex items-center justify-center lg:justify-start">
+            সব পণ্য
+          </h2>
+          <p className="text-gray-500 mb-8 flex items-center justify-center lg:justify-start">
+            মোট {toBanglaNumber(products.length)}টি পণ্য দেখানো হচ্ছে
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((p) => (
             <ProductCard key={p.id} p={p} />

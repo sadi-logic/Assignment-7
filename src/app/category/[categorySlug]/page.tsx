@@ -1,5 +1,4 @@
 import Link from "next/link";
-import CategoryProductsList from "./categoryList";
 import CategoryList from "./categoryList";
 
 export const instant = false;
@@ -27,9 +26,6 @@ const CategorieProduct = async ({ params }: { params: Promise<{ categorySlug: st
 
     const { categorySlug } = await params;
 
-    //  const allData = await getCategoryProducts(categorySlug);
-
-    //   const categoryProducts = allData.filter((p) => p.category === categorySlug);
     const categoryProducts = await getCategoryProducts(categorySlug);
     console.log(categoryProducts);
 
@@ -63,14 +59,14 @@ const CategorieProduct = async ({ params }: { params: Promise<{ categorySlug: st
     return (
         <div className="container mx-auto py-8 px-4 max-w-6xl">
 
-            {/* Breadcrumb */}
+            
             <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
                 <Link href={'/'} className="hover:text-green-600 transition-colors">হোম</Link>
                 <span>⪢</span>
                 <p className="font-medium text-gray-800">{categoryNameBn}</p>
             </div>
 
-            {/* Header Card */}
+           
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
                 <div className="bg-green-50 p-4 rounded-xl text-4xl">
                     {categoryIcon}

@@ -4,25 +4,26 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const ProfilePage = () => {
     const { data: session, isPending } = authClient.useSession();
     const router = useRouter();
 
-    // State for the form input
+
     const [name, setName] = useState("");
     const [isUpdating, setIsUpdating] = useState(false);
 
     const user = session?.user;
 
-    // Pre-fill the input with the user's current name when session loads
+
     useEffect(() => {
         if (user?.name) {
             setName(user.name);
         }
     }, [user]);
 
-    // Handle Sign Out
+
     const handleSignOut = async () => {
         await authClient.signOut({
             fetchOptions: {
@@ -31,14 +32,15 @@ const ProfilePage = () => {
                 },
             },
         });
+        toast.warning('You Are Signed Out')
     };
 
-    // Handle Form Update
-    const handleUpdate = async (e: React.FormEvent) => {
+
+    const handleUpdate = async (e: React.SubmitEvent) => {
         e.preventDefault();
         setIsUpdating(true);
 
-        // Update user profile in Better Auth
+
         const { data, error } = await authClient.updateUser({
             name: name,
         });
@@ -46,19 +48,19 @@ const ProfilePage = () => {
         setIsUpdating(false);
 
         if (error) {
-            alert(error.message || "Failed to update profile");
+            toast.error(error.message || "Failed to update profile")
             return;
         }
 
-        alert("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
-        router.refresh(); // Refresh to show new data in Navbar
+
+        toast.success('Your Profile is Updated')
     };
 
-    // Loading State
+
     if (isPending || !user) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <p className="text-gray-500">লোড হচ্ছে...</p>
+                <p className="text-gray-500">loading..</p>
             </div>
         );
     }
@@ -66,8 +68,8 @@ const ProfilePage = () => {
     return (
         <div className="min-h-screen bg-[#F8FAFC] py-10 px-4">
             <div className="container mx-auto max-w-2xl">
-                
-                {/* Header */}
+
+
                 <div className="mb-6">
                     <h1 className="text-2xl font-bold text-gray-900">আমার প্রোফাইল</h1>
                     <p className="text-sm text-gray-500 mt-1">
@@ -75,17 +77,17 @@ const ProfilePage = () => {
                     </p>
                 </div>
 
-                {/* 1. User Info Card */}
+
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-4 w-full">
-                        {/* Avatar with fallback */}
+
                         <div className="w-14 h-14 rounded-full overflow-hidden shrink-0 bg-green-600 flex items-center justify-center">
                             {user.image ? (
-                                <Image 
-                                    src={user.image} 
-                                    alt={user.name || "User"} 
-                                    width={56} 
-                                    height={56} 
+                                <Image
+                                    src={user.image}
+                                    alt={user.name || "User"}
+                                    width={56}
+                                    height={56}
                                     className="object-cover w-full h-full"
                                 />
                             ) : (
@@ -100,16 +102,12 @@ const ProfilePage = () => {
                         </div>
                     </div>
 
-                    {/* Sign Out Button */}
+
                     <button
                         onClick={handleSignOut}
                         className=" gap-2 border border-red-200 text-red-600 font-semibold px-8 py-2 rounded-xl hover:bg-red-50 transition-colors w-full sm:w-auto justify-center"
                     >
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                        </svg> */}
-
-                       ↩ সাইন আউট
+                        ↩ সাইন আউট
                     </button>
                 </div>
 

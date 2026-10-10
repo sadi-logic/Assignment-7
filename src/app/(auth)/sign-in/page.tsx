@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Button, Description, Fieldset, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import Link from "next/link";
+import { toast } from "react-toastify";
 const SignIn = () => {
 
     const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -19,20 +20,21 @@ const SignIn = () => {
             callbackURL: "/",
         });
 
-        alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
+        toast.success('Sign In successfully')
     }
 
     const handleGoogleSignIn = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
         });
+        toast.success('Google Sign In Success')
     };
 
     const handleGithubSignIn = async () => {
         const data = await authClient.signIn.social({
             provider: "github",
         });
-
+        toast.success('Github Sign In Success')
 
     };
 
@@ -100,7 +102,7 @@ const SignIn = () => {
                     </div>
                     <Button onClick={handleGithubSignIn} className='rounded-none  hover:bg-green-200 bg-white text-black'>GitHub দিয়ে চালিয়ে যান</Button>
                 </div>
-                
+
                 <div className="flex items-center justify-center">
                     <p>অ্যাকাউন্ট নেই?</p>
                     <Link href={'/sign-up'}><p className="text-green-800">সাইন আপ করুন</p></Link>

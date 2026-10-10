@@ -14,9 +14,13 @@ import {
     TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { toast } from "react-toastify";
 
 
 const SignUp = () => {
+    const router = useRouter();
     const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -34,13 +38,25 @@ const SignUp = () => {
             callbackURL: "/",
         });
 
+        toast.success('Successfully created the account !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
 
+        });
+        router.push("/");
 
     };
     const handleGoogleSignUp = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
         });
+         toast.success('Google Sign in Success')
     };
 
     const handleGithubSignUp = async () => {
@@ -48,7 +64,7 @@ const SignUp = () => {
             provider: "github",
         });
 
-
+         toast.success('Github Sign in Success')
     };
 
     return (
